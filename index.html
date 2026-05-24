@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guida Parcheggi e Itinerari - Portogallo</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Inter per massima leggibilità -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome per icone moderne -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        portugal: {
+                            gold: '#F4B41A',
+                            red: '#E43F5A',
+                            blue: '#1F4068',
+                            dark: '#162447',
+                            light: '#F8F9FA'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col antialiased">
+
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-portugal-dark via-portugal-blue to-blue-900 text-white shadow-xl relative overflow-hidden">
+        <!-- Pattern di sfondo stile Azulejos -->
+        <div class="absolute inset-0 opacity-10 pointer-events-none bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div class="flex items-center space-x-4">
+                    <div class="bg-gradient-to-br from-portugal-gold to-yellow-500 p-3 rounded-2xl shadow-lg">
+                        <i class="fa-solid fa-square-p text-3xl text-portugal-dark"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">PORTUGAL<span class="text-portugal-gold">PARK</span></h1>
+                        <p class="text-xs sm:text-sm text-slate-300 font-medium">Guida Intelligente ai Parcheggi & Itinerari Stradali</p>
+                    </div>
+                </div>
+                <!-- Stato di viaggio / info rapide -->
+                <div class="flex items-center gap-3 bg-white/10 backdrop-blur-md px-4 py-2 rounded-xl border border-white/10 text-xs sm:text-sm">
+                    <span class="inline-flex h-3 w-3 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span>Guida Aggiornata • Pronto all'uso in Auto</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Info Banner / Pedaggi -->
+    <div class="bg-amber-50 border-y border-amber-200 text-amber-900 py-3 px-4">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs sm:text-sm">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-circle-exclamation text-amber-600 text-base flex-shrink-0"></i>
+                <p><strong>Promemoria Autostrade:</strong> Molte autostrade in Portogallo usano pedaggi esclusivamente elettronici (EasyToll / Via Verde). Registra la targa al confine!</p>
+            </div>
+            <a href="https://www.portugaltolls.com/" target="_blank" class="text-amber-700 hover:text-amber-900 underline font-semibold flex items-center gap-1">
+                Sito Ufficiale <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content Grid -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 py-8 sm:px-6 lg:px-8">
+        
+        <!-- Sezione Selezione Destinazione -->
+        <section class="mb-8">
+            <h2 class="text-lg font-bold text-slate-700 mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-map-location-dot text-portugal-blue"></i> Seleziona la tua Destinazione
+            </h2>
+            
+            <!-- Menu a Tab / Cards -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <!-- Tavira -->
+                <button onclick="selectCity('tavira')" id="btn-tavira" class="city-btn relative overflow-hidden text-left p-4 rounded-2xl border-2 transition-all duration-300 focus:outline-none shadow-sm hover:shadow-md bg-white border-slate-200">
+                    <div class="absolute -right-6 -bottom-6 text-slate-100 opacity-20 text-7xl font-bold">TV</div>
+                    <span class="text-xs font-bold tracking-wider text-slate-400 uppercase">Algarve Est</span>
+                    <h3 class="text-lg font-extrabold text-slate-800 mt-1">Tavira</h3>
+                    <div class="flex items-center gap-2 mt-2 text-xs text-emerald-600 font-semibold">
+                        <i class="fa-solid fa-square-check"></i> <span>Facile Accesso</span>
+                    </div>
+                </button>
+
+                <!-- Faro -->
+                <button onclick="selectCity('faro')" id="btn-faro" class="city-btn relative overflow-hidden text-left p-4 rounded-2xl border-2 transition-all duration-300 focus:outline-none shadow-sm hover:shadow-md bg-white border-slate-200">
+                    <div class="absolute -right-6 -bottom-6 text-slate-100 opacity-20 text-7xl font-bold">FR</div>
+                    <span class="text-xs font-bold tracking-wider text-slate-400 uppercase">Capoluogo Algarve</span>
+                    <h3 class="text-lg font-extrabold text-slate-800 mt-1">Faro</h3>
+                    <div class="flex items-center gap-2 mt-2 text-xs text-amber-600 font-semibold">
+                        <i class="fa-solid fa-circle-info"></i> <span>Grande Park Gratis</span>
+                    </div>
+                </button>
+
+                <!-- Lisbona -->
+                <button onclick="selectCity('lisbona')" id="btn-lisbona" class="city-btn relative overflow-hidden text-left p-4 rounded-2xl border-2 transition-all duration-300 focus:outline-none shadow-sm hover:shadow-md bg-white border-slate-200">
+                    <div class="absolute -right-6 -bottom-6 text-slate-100 opacity-20 text-7xl font-bold">LX</div>
+                    <span class="text-xs font-bold tracking-wider text-slate-400 uppercase">Centro (Anjos)</span>
+                    <h3 class="text-lg font-extrabold text-slate-800 mt-1">Lisbona</h3>
+                    <div class="flex items-center gap-2 mt-2 text-xs text-blue-600 font-semibold">
+                        <i class="fa-solid fa-hotel"></i> <span>Travel Park Hotel</span>
+                    </div>
+                </button>
+
+                <!-- Porto -->
+                <button onclick="selectCity('porto')" id="btn-porto" class="city-btn relative overflow-hidden text-left p-4 rounded-2xl border-2 transition-all duration-300 focus:outline-none shadow-sm hover:shadow-md bg-white border-slate-200">
+                    <div class="absolute -right-6 -bottom-6 text-slate-100 opacity-20 text-7xl font-bold">PT</div>
+                    <span class="text-xs font-bold tracking-wider text-slate-400 uppercase">Boavista (Centro)</span>
+                    <h3 class="text-lg font-extrabold text-slate-800 mt-1">Porto</h3>
+                    <div class="flex items-center gap-2 mt-2 text-xs text-purple-600 font-semibold">
+                        <i class="fa-solid fa-hotel"></i> <span>HF Tuela Hotel</span>
+                    </div>
+                </button>
+            </div>
+        </section>
+
+        <!-- Pannello Dinamico Città -->
+        <div class="bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden transition-all duration-500">
+            <!-- City Banner Dinamico -->
+            <div id="city-banner" class="p-6 sm:p-8 bg-gradient-to-r text-white relative">
+                <div class="absolute inset-0 opacity-10 pointer-events-none bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:20px_20px]"></div>
+                <div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                    <div>
+                        <span id="city-region" class="px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-bold tracking-wider uppercase">REGIONE</span>
+                        <h2 id="city-title" class="text-3xl sm:text-4xl font-extrabold mt-2">Seleziona una città</h2>
+                        <p id="city-description" class="text-sm sm:text-base text-white/90 mt-2 max-w-2xl">Descrizione del luogo ed utilità strategiche.</p>
+                    </div>
+                    <!-- Bottone per scaricare intero itinerario KML -->
+                    <button onclick="downloadKml()" class="bg-white text-slate-900 hover:bg-slate-100 px-5 py-3 rounded-2xl font-bold text-sm shadow-lg flex items-center gap-2 transition-all shrink-0">
+                        <i class="fa-solid fa-file-arrow-down text-emerald-600 text-lg"></i>
+                        <span>Scarica GPS (.KML)</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Corpo della scheda -->
+            <div class="p-6 sm:p-8">
+                <!-- Filtri interni -->
+                <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-100 pb-6 mb-6">
+                    <div>
+                        <h3 class="font-bold text-slate-800 text-lg">Soluzioni di Parcheggio</h3>
+                        <p class="text-xs text-slate-500">Selezionate e verificate per prossimità e comodità</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="filterType('all')" id="filter-all" class="filter-btn px-4 py-2 rounded-xl text-xs font-bold border transition-all bg-slate-900 text-white border-slate-900">Tutti</button>
+                        <button onclick="filterType('free')" id="filter-free" class="filter-btn px-4 py-2 rounded-xl text-xs font-bold border border-slate-200 transition-all text-slate-600 hover:bg-slate-50">Solo Gratuiti</button>
+                        <button onclick="filterType('paid')" id="filter-paid" class="filter-btn px-4 py-2 rounded-xl text-xs font-bold border border-slate-200 transition-all text-slate-600 hover:bg-slate-50">Solo a Pagamento</button>
+                    </div>
+                </div>
+
+                <!-- Lista dei Parcheggi -->
+                <div id="parking-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- I parcheggi verranno iniettati qui dal JS -->
+                </div>
+
+                <!-- Sezione Navigazione & Arrivo in Auto (Timeline) -->
+                <div class="mt-12 bg-slate-50 rounded-2xl p-6 sm:p-8 border border-slate-100">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="bg-portugal-blue text-white p-2 rounded-lg">
+                            <i class="fa-solid fa-road text-lg"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-extrabold text-slate-800 text-lg">Come Arrivarci in Auto dall'Autostrada</h3>
+                            <p class="text-xs text-slate-500">Percorso semplificato per chi arriva dalle arterie principali</p>
+                        </div>
+                    </div>
+
+                    <!-- Timeline dei passi -->
+                    <div id="highway-steps" class="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
+                        <!-- Iniettato via JS -->
+                    </div>
+                </div>
+
+                <!-- Sezione Consigli per l'Auto -->
+                <div class="mt-8 bg-blue-50/50 rounded-2xl p-6 border border-blue-100/50 flex flex-col sm:flex-row gap-4 items-start">
+                    <div class="p-3 bg-blue-500 text-white rounded-xl shadow-md">
+                        <i class="fa-solid fa-lightbulb text-xl"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-blue-950 text-base">Consiglio da Esperti di Viaggio</h4>
+                        <p id="city-tip" class="text-sm text-blue-900/80 mt-1">Seleziona una città per visualizzare i consigli strategici personalizzati.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-portugal-dark text-slate-400 py-8 mt-auto border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 text-center sm:px-6 lg:px-8">
+            <p class="text-sm">© 2026 PortugalPark. Tutti i dati sono indicati a titolo informativo. Verifica sempre in loco la segnaletica stradale.</p>
+            <p class="text-xs text-slate-600 mt-2">Costruito con passione per facilitare i viaggi on-the-road in Portogallo.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Database dei parcheggi ed itinerari
+        const citiesData = {
+            tavira: {
+                title: "Tavira",
+                region: "Algarve Est",
+                gradient: "from-amber-500 to-orange-600",
+                description: "Tavira è una gemma storica dell'Algarve. Il centro ha stradine strette e storiche, per cui parcheggiare ai margini è la strategia vincente per evitare traffico e vicoli ciechi.",
+                tip: "Arrivi dopo le 10:30 in estate? Dirigiti direttamente al parcheggio gratuito del Mercado Municipal. È spazioso, sicuro e camminare lungo il fiume per raggiungere il centro è piacevolissimo.",
+                highwaySteps: [
+                    { step: "1", title: "Uscita Autostradale", text: "Prendi l'uscita 'Tavira' dall'autostrada A22 (Via do Infante)." },
+                    { step: "2", title: "Imbocco statale", text: "Segui la N270 in direzione Tavira centro/mare per circa 4 km." },
+                    { step: "3", title: "Rotonda Principale", text: "Alla rotonda di ingresso, segui l'icona del 'Mercado Municipal' per il parcheggio gratuito, o 'Centro' per le opzioni a pagamento." }
+                ],
+                parking: [
+                    {
+                        name: "Mercado Municipal (Gratuito)",
+                        type: "free",
+                        desc: "Molto ampio, pavimentato, vicino al nuovo mercato coperto. Dista solo 5-7 minuti a piedi dal centro storico passeggiando lungo il fiume.",
+                        difficulty: "Molto Facile",
+                        mapsUrl: "https://www.google.com/maps/search/?api=1&query=37.1232,-7.6406",
+                        lat: 37.1232, lon: -7.6406,
+                        tags: ["Consigliato", "Ampio", "Furgoni"]
+                    },
+                    {
+                        name: "Parcheggio Rua João Vaz Corte Real",
+                        type: "free",
+                        desc: "Zona mista sterrata/asfalto vicino allo skate park e ponte ferroviario. Molto usato anche dai camper. Comodo per raggiungere il centro in 8 minuti.",
+                        difficulty: "Facile",
+                        mapsUrl: "https://www.google.com/maps/search/?api=1&query=37.1285,-7.6468",
+                        lat: 37.1285, lon: -7.6468,
+                        tags: ["Adatto a camper", "Ombra parziale"]
+                    },
+                    {
+                        name: "Centro Commerciale Tavira Plaza",
+                        type: "free",
+                        desc: "Parcheggio al coperto e scoperto gratuito dell'area commerciale. Ottima alternativa se si cerca ombra e sicurezza totale. Dista 15 min a piedi dal centro.",
+                        difficulty: "Molto Facile",
+                        mapsUrl: "https://www.google.com/maps/search/?api=1&query=37.1322,-7.6358",
+                        lat: 37.1322, lon: -7.6358,
+                        tags: ["Coperto", "Videosorvegliato"]
+                    },
+                    {
+                        name: "Lungo Fiume Gilão (Zona Blu)",
+                        type: "paid",
+                        desc: "Stalli lungo la riva del fiume. Ottima posizione ma estremamente trafficato. Prezzo di circa 1,00€/ora. Pagamento con parchimetro.",
+                        difficulty: "Medio",
+                        mapsUrl: "https://www.google.com/maps/search/?api=1&query=37.1265,-7.6492",
+                        lat: 37.1265, lon: -7.6492,
+                        tags: ["Centrale", "Sul fiume"]
+                    },
+                    {
+                        name: "Parcheggio Central Tavira",
+                        type: "paid",
+                        desc: "Parcheggio su strada delimitato e gestito, situato in Rua del Poço do Bispo. Molto comodo per chi ha difficoltà a camminare, ma con pochi posti.",
+                        difficulty: "Medio-Difficile",
+                        mapsUrl: "https://www.google.com/maps/search/?api=1&query=37.1250,-7.6482",
+                        lat: 37.1250, lon: -7.6482,
+                        tags: ["Vicino Monumenti", "Pochi posti"]
+                    }
+                ]
+            },
+            faro: {
+                title: "Faro",
+                region: "Capoluogo Algarve",
+                gradient: "from-blue-600 to-indigo-700",
+                description: "Faro unisce un porto turistico animato a una splendida città vecchia murata. Gran parte del centro è pedonale, quindi trovare un parcheggio strategico fuori dalle mura è fondamentale.",
+                tip: "La piazza di Largo de São Francisco è enorme e sempre accessibile. Se vedi i parcheggiatori abusivi ('arrumadores'), lascialgli pure 0.50€ o 1€ per stare sereno, ma non sentirti obbligato.",
+                highwaySteps: [
+                    { step: "1", title: "Uscita Faro/Aeroporto", text: "Dall'autostrada A22 prendi l'uscita Faro / Aeroporto imboccando la N125-4." },
+                    { step: "2", title: "Accesso a Faro", text: "Prosegui dritto sulla N125 per Faro Centro, superando il complesso commerciale." },
+                    { step: "3", title: "Direzione Porto/Mura", text: "Segui i cartelli stradali per 'Porto' o 'Cidade Velha'. Troverai il grande piazzale proprio lungo il litorale." }
+                ],
+                parking: [
+                    {
+                        name: "Largo de São Francisco (Gratuito)",
+                        type: "free",
+                        desc: "La piazza sterrata più grande e celebre della città, situata adiacente alle storiche mura della Cidade Velha. Ideale per soste prolungate.",
+                        difficulty: "Molto Facile",
+                        mapsUrl: "https://www.google.com/maps/search/?api=1&query=37.0125,-7.9312",
+                        lat: 37.0125, lon: -7.9312,
+                        tags: ["Enorme", "Accanto alle Mura", "Popolare"]
+                    },
+                    {
+                        name: "Dintorni Stazione e Tribunale",
+                        type: "free",
+                        desc: "Stalli bianchi liberi nelle vie adiacenti al tribunale e verso la stazione ferroviaria. Spesso occupati, ma gratuiti.",
+                        difficulty: "Medio",
+                        mapsUrl: "https://www.google.com/maps/search/?api=1&query=37.0205,-7.9352",
+                        lat: 37.0205, lon: -7.9352,
+                        tags: ["Su strada", "Residenziale"]
+                    },
+                    {
+                        name: "Parque Saba Pontinha (Sotterraneo)",
+                        type: "paid",
+                        desc: "Il parcheggio coperto più moderno e centrale di Faro, situato sotto Largo dos Combatenti. Ottimo per tenere l'auto fresca in estate.",
+                        difficulty: "Facile",
+                        mapsUrl: "https://www.google.com/maps/search/?api=1&query=37.0175,-7.9332",
+                        lat: 37.0175, lon: -7.9332,
+                        tags: ["Coperto", "24/7", "Sicurezza 100%"]
+                    },
+                    {
+                        name: "Parcheggio Mercato Municipale",
+                        type: "paid",
+                        desc: "Situato sotto la struttura del mercato coperto. Molto economico e con ampi spazi di manovra. A soli 10 minuti a piedi dal porto.",
+                        difficulty: "Facile",
+                        mapsUrl: "https://www.google.com/maps/search/?api=1&query=37.0225,-7.9288",
+                        lat: 37.0225, lon: -7.9288,
+                        tags: ["Tariffa Low-cost", "Spazioso"]
+                    }
+                ]
+            },
+            lisbona: {
+                title: "Lisbona",
+                region: "Centro Città (Anjos)",
+                gradient: "from-red-500 to-rose-600",
+                description: "Vicino al Travel Park Hotel (Avenida Almirante Reis) la densità di traffico è elevata. Parcheggiare su strada è regolato dai severi controlli EMEL. Consigliamo caldamente strutture coperte.",
+                tip: "Scarica l'applicazione 'ePark' se decidi di parcheggiare sulle strisce blu per strada. In questo modo puoi prolungare la sosta senza dover tornare all'automobile.",
+                highwaySteps: [
+                    { step: "1", title: "Ingresso da Nord/Sud", text: "Arrivando dalla A1 (Nord) o A2 (Sud), procedi verso il centro città / Praça Marquês de Pombal." },
+                    { step: "2", title: "Imbocco Almirante Reis", text: "Segui le indicazioni per Av. Almirante Reis. L'hotel si trova in corrispondenza della stazione metro Anjos." },
+                    { step: "3", title: "Accesso ai Garage", text: "Evita di cercare posto sulla via principale: imbocca subito i vicoli laterali per accedere ai garage interrati." }
+                ],
+                parking: [
+                    {
+                        name: "Garage Privato Travel Park Hotel",
+                        type: "paid",
+                        desc: "Servizio parcheggio custodito direttamente sotto la struttura dell'hotel. Consigliato per evitare qualsiasi tipo di stress cittadino.",
+                        difficulty: "Molto Facile",
+                        mapsUrl: "https://www.google.com/maps/search/?api=1&query=38.7258,-9.1350",
+                        lat: 38.7258, lon: -9.1350,
+                        tags: ["In Hotel", "Custodito", "Massima Comodità"]
+                    },
+                    {
+                        name: "Parque Garagem Almirante Reis",
+                        type: "paid",
+                        desc: "Sotterraneo pubblico situato a pochissimi metri dall'ingresso dell'hotel. Sicuro, videosorvegliato e accessibile 24 ore su 24.",
+                        difficulty: "Facile",
+                        mapsUrl: "https://www.google.com/maps/search/?api=1&query=38.7245,-9.1352",
+                        lat: 38.7245, lon: -9.1352,
+                        tags: ["A 50m dall'hotel", "Sotterraneo"]
+                    },
+                    {
+                        name: "Parque Martim Moniz",
+                        type: "paid",
+                        desc: "Grande parcheggio sotterraneo a circa 1 km di discesa dall'hotel. Posizione eccellente per iniziare a piedi il tour di Alfama e Baixa.",
+                        difficulty: "Medio",
+                        mapsUrl: "https://www.google.com/maps/search/?api=1&query=38.7185,-9.1362",
+                        lat: 38.7185, lon: -9.1362,
+                        tags: ["Molto grande", "Punto strategico"]
+                    },
+                    {
+                        name: "Zona Olaias / Beato (Periferico)",
+                        type: "free",
+                        desc: "Zone residenziali collinari non soggette a tariffe EMEL. Lasci l'auto gratis e rientri all'hotel in 3 fermate di Metropolitana (Linea Rossa).",
+                        difficulty: "Difficile",
+                        mapsUrl: "https://www.google.com/maps/search/?api=1&query=38.7385,-9.1235",
+                        lat: 38.7385, lon: -9.1235,
+                        tags: ["Fuori dal Centro", "Usa la Metro"]
+                    }
+                ]
+            },
+            porto: {
+                title: "Porto",
+                region: "Boavista / Bom Sucesso",
+                gradient: "from-teal-600 to-cyan-700",
+                description: "L'hotel HF Tuela Porto sorge a Boavista, un'area moderna e commerciale. Le strade del centro storico di Porto sono estremamente ripide e strette, ma questa zona è molto più accessibile in vettura.",
+                tip: "Usa la metropolitana 'Casa da Música' (a 8 minuti a piedi dall'hotel) per scendere in centro in pochi minuti ed evitare di guidare e parcheggiare sui ripidi colli del centro storico.",
+                highwaySteps: [
+                    { step: "1", title: "Imbocco VCI", text: "Dall'autostrada A1 o A28 entra nella VCI (Via de Cintura Interna) circonvallazione di Porto." },
+                    { step: "2", title: "Uscita Boavista", text: "Prendi l'uscita 'Boavista' e procedi verso la grande rotonda monumentale (Rotunda da Boavista)." },
+                    { step: "3", title: "Arrivo in Hotel", text: "Dalla rotonda prendi Rua de Julio Dinis. L'hotel e il centro commerciale adiacente saranno sulla tua destra." }
+                ],
+                parking: [
+                    {
+                        name: "Garage Interno HF Tuela",
+                        type: "paid",
+                        desc: "Il parcheggio privato coperto dell'hotel stesso. Accesso diretto alle camere, ideale per caricare/scaricare bagagli senza pensieri.",
+                        difficulty: "Molto Facile",
+                        mapsUrl: "https://www.google.com/maps/search/?api=1&query=41.1528,-8.6292",
+                        lat: 41.1528, lon: -8.6292,
+                        tags: ["In Hotel", "Coperto", "Comodo"]
+                    },
+                    {
+                        name: "Parking Shopping Cidade do Porto",
+                        type: "paid",
+                        desc: "Parcheggio sotterraneo del centro commerciale situato di fronte all'hotel. Tariffe convenzionate vantaggiose per soste lunghe.",
+                        difficulty: "Facile",
+                        mapsUrl: "https://www.google.com/maps/search/?api=1&query=41.1525,-8.6288",
+                        lat: 41.1525, lon: -8.6288,
+                        tags: ["Sotto il Centro Commerciale", "Fresco"]
+                    },
+                    {
+                        name: "Parque Bom Sucesso",
+                        type: "paid",
+                        desc: "Sotterraneo moderno vicino al rinomato Mercato Bom Sucesso. Ottima alternativa se si vuole cenare nel mercato gourmet.",
+                        difficulty: "Facile",
+                        mapsUrl: "https://www.google.com/maps/search/?api=1&query=41.1538,-8.6280",
+                        lat: 41.1538, lon: -8.6280,
+                        tags: ["Vicino Mercato Food", "Moderno"]
+                    },
+                    {
+                        name: "Stradine Massarelos (Sera/Weekend)",
+                        type: "free",
+                        desc: "Le vie residenziali che scendono verso il fiume Douro sono libere da strisce blu ma con posti limitati. Gratis la sera e nei fine settimana.",
+                        difficulty: "Medio-Difficile",
+                        mapsUrl: "https://www.google.com/maps/search/?api=1&query=41.1502,-8.6315",
+                        lat: 41.1502, lon: -8.6315,
+                        tags: ["Su strada", "Pendenza elevata"]
+                    }
+                ]
+            }
+        };
+
+        // Stato dell'applicazione
+        let currentCity = 'tavira';
+        let currentFilter = 'all';
+
+        // Funzione per selezionare la città dal menu
+        function selectCity(cityKey) {
+            currentCity = cityKey;
+            
+            // Aggiorna lo stato visivo dei pulsanti del menu città
+            document.querySelectorAll('.city-btn').forEach(btn => {
+                btn.classList.remove('border-portugal-gold', 'ring-4', 'ring-amber-100', 'bg-amber-50/50');
+                btn.classList.add('border-slate-200', 'bg-white');
+            });
+            const activeBtn = document.getElementById(`btn-${cityKey}`);
+            activeBtn.classList.remove('border-slate-200', 'bg-white');
+            activeBtn.classList.add('border-portugal-gold', 'ring-4', 'ring-amber-100', 'bg-amber-50/50');
+
+            // Aggiorna i dati del pannello informativo
+            const data = citiesData[cityKey];
+            
+            const banner = document.getElementById('city-banner');
+            banner.className = `p-6 sm:p-8 bg-gradient-to-r ${data.gradient} text-white relative`;
+            
+            document.getElementById('city-title').textContent = data.title;
+            document.getElementById('city-region').textContent = data.region;
+            document.getElementById('city-description').textContent = data.description;
+            document.getElementById('city-tip').textContent = data.tip;
+
+            // Rigenera i passi dell'autostrada
+            const stepsContainer = document.getElementById('highway-steps');
+            stepsContainer.innerHTML = '';
+            data.highwaySteps.forEach((step, index) => {
+                const stepElement = document.createElement('div');
+                stepElement.className = "flex flex-col bg-white p-5 rounded-xl border border-slate-100 shadow-sm relative";
+                stepElement.innerHTML = `
+                    <div class="absolute -top-3 left-5 bg-portugal-gold text-slate-900 font-extrabold w-8 h-8 rounded-full flex items-center justify-center shadow-md border-2 border-white text-sm">
+                        ${step.step}
+                    </div>
+                    <h5 class="font-bold text-slate-800 text-base mt-2 mb-1">${step.title}</h5>
+                    <p class="text-xs text-slate-600 leading-relaxed">${step.text}</p>
+                `;
+                stepsContainer.appendChild(stepElement);
+            });
+
+            // Mostra i parcheggi applicando il filtro corrente
+            renderParking();
+        }
+
+        // Filtra i parcheggi per tipo
+        function filterType(type) {
+            currentFilter = type;
+            
+            // Aggiorna lo stato attivo dei pulsanti filtro
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.className = "filter-btn px-4 py-2 rounded-xl text-xs font-bold border transition-all text-slate-600 border-slate-200 hover:bg-slate-50";
+            });
+            const activeBtn = document.getElementById(`filter-${type}`);
+            activeBtn.className = "filter-btn px-4 py-2 rounded-xl text-xs font-bold border transition-all bg-slate-900 text-white border-slate-900";
+
+            renderParking();
+        }
+
+        // Renderizza la lista dei parcheggi
+        function renderParking() {
+            const container = document.getElementById('parking-container');
+            container.innerHTML = '';
+            
+            const list = citiesData[currentCity].parking;
+            const filteredList = list.filter(item => {
+                if (currentFilter === 'all') return true;
+                return item.type === currentFilter;
+            });
+
+            if (filteredList.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full py-12 text-center text-slate-400">
+                        <i class="fa-solid fa-square-parking text-4xl mb-2 block"></i>
+                        <p class="font-medium text-sm">Nessun parcheggio trovato per questa categoria.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            filteredList.forEach(item => {
+                const card = document.createElement('div');
+                const isFree = item.type === 'free';
+                card.className = "bg-white border border-slate-100 rounded-2xl p-5 hover:shadow-lg transition-all duration-300 flex flex-col justify-between";
+                
+                // Creazione badge tag
+                const tagsHtml = item.tags.map(tag => `
+                    <span class="bg-slate-100 text-slate-600 text-[10px] px-2 py-0.5 rounded-full font-semibold">${tag}</span>
+                `).join('');
+
+                card.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-start mb-3 gap-2">
+                            <h4 class="font-bold text-slate-800 text-base leading-tight">${item.name}</h4>
+                            <span class="px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase shrink-0 ${
+                                isFree ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'
+                            }">
+                                ${isFree ? 'Gratis' : 'Pagamento'}
+                            </span>
+                        </div>
+                        <p class="text-xs text-slate-600 mb-4 line-clamp-3">${item.desc}</p>
+                        <div class="flex flex-wrap gap-1.5 mb-4">
+                            ${tagsHtml}
+                        </div>
+                    </div>
+                    <div class="border-t border-slate-50 pt-4 mt-auto">
+                        <div class="flex justify-between items-center mb-4 text-xs">
+                            <span class="text-slate-400">Arrivo / Accesso:</span>
+                            <span class="font-bold text-slate-700">${item.difficulty}</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <!-- Link Diretto Google Maps -->
+                            <a href="${item.mapsUrl}" target="_blank" class="bg-blue-50 hover:bg-blue-100 text-blue-700 text-xs font-bold py-2.5 px-3 rounded-xl flex items-center justify-center gap-1.5 transition-all text-center">
+                                <i class="fa-solid fa-map-location-dot"></i> Google Maps
+                            </a>
+                            <!-- Link navigazione integrata locale (GPS offline) -->
+                            <button onclick="downloadSingleKml('${item.name}', ${item.lat}, ${item.lon})" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-xs font-bold py-2.5 px-3 rounded-xl flex items-center justify-center gap-1.5 transition-all">
+                                <i class="fa-solid fa-arrow-down-to-bracket"></i> Salva GPS
+                            </button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Esporta la singola coordinata in un file KML scaricabile
+        function downloadSingleKml(name, lat, lon) {
+            const kmlContent = `<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>${name}</name>
+    <Placemark>
+      <name>${name}</name>
+      <description>Destinazione Parcheggio - Guida Portogallo</description>
+      <Point>
+        <coordinates>${lon},${lat},0</coordinates>
+      </Point>
+    </Placemark>
+  </Document>
+</kml>`;
+
+            triggerDownload(kmlContent, `${name.replace(/\s+/g, '_')}.kml`);
+        }
+
+        // Esporta tutti i parcheggi della città in un unico file KML
+        function downloadKml() {
+            const data = citiesData[currentCity];
+            let placemarks = '';
+
+            data.parking.forEach(p => {
+                placemarks += `    <Placemark>
+      <name>${p.name} (${p.type === 'free' ? 'Gratis' : 'Pagamento'})</name>
+      <description>${p.desc}</description>
+      <Point>
+        <coordinates>${p.lon},${p.lat},0</coordinates>
+      </Point>
+    </Placemark>\n`;
+            });
+
+            const kmlContent = `<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>Parcheggi_${data.title}</name>
+    <description>Tutti i parcheggi utili per ${data.title} - Portogallo</description>
+${placemarks}  </Document>
+</kml>`;
+
+            triggerDownload(kmlContent, `Parcheggi_${data.title}.kml`);
+        }
+
+        // Funzione helper per scatenare il download del file nel browser (compatibile con restrizioni iframe)
+        function triggerDownload(content, filename) {
+            const blob = new Blob([content], { type: 'application/vnd.google-earth.kml+xml' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Inizializza l'applicazione al caricamento della pagina
+        window.onload = function() {
+            selectCity('tavira');
+        }
+    </script>
+</body>
+</html>
